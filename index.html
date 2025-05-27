@@ -182,16 +182,12 @@
   const dropdown = document.querySelector('.dropdown');
   const dropbtn = document.getElementById('dropbtn');
   const dropdownContent = document.getElementById('dropdown-menu');
-&nbsp;
-&nbsp;
 
   dropbtn.addEventListener('click', () => {
     const expanded = dropbtn.getAttribute('aria-expanded') === 'true';
     dropbtn.setAttribute('aria-expanded', String(!expanded));
     dropdown.classList.toggle('show');
   });
-&nbsp;
-&nbsp;
 
   // Close dropdown when clicking outside
   document.addEventListener('click', (event) => {
@@ -200,8 +196,6 @@
       dropbtn.setAttribute('aria-expanded', 'false');
     }
   });
-&nbsp;
-&nbsp;
 
   // Keyboard accessibility
   dropdown.addEventListener('keydown', (e) => {
@@ -214,3 +208,4 @@
 </script>
 </body>
 </html>
+
