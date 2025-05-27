@@ -168,7 +168,7 @@
 </header>
 <main>
   <div class="card">
-    <iframe id="gameFrame" src="spacedash-game.html" allowfullscreen></iframe>
+    <iframe id="gameFrame" src="spacedash-game.html" allowfullscreen title="Space Dash Game"></iframe>
     <button class="fullscreen-btn" id="fullscreenBtn" aria-label="Toggle fullscreen">Toggle Fullscreen</button>
   </div>
 </main>
@@ -180,26 +180,23 @@
   const dropdown = document.querySelector('.dropdown');
   const dropbtn = document.getElementById('dropbtn');
   const dropdownContent = document.getElementById('dropdown-menu');
-&nbsp;
-&nbsp;
 
-  dropbtn.addEventListener('click', () => {
+  dropbtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent document click closing immediately
     const expanded = dropbtn.getAttribute('aria-expanded') === 'true';
     dropbtn.setAttribute('aria-expanded', String(!expanded));
     dropdown.classList.toggle('show');
   });
-&nbsp;
-&nbsp;
 
+  // Close dropdown when clicking outside
   document.addEventListener('click', (event) => {
     if (!dropdown.contains(event.target)) {
       dropdown.classList.remove('show');
       dropbtn.setAttribute('aria-expanded', 'false');
     }
   });
-&nbsp;
-&nbsp;
 
+  // Keyboard accessibility
   dropdown.addEventListener('keydown', (e) => {
     if (e.key === "Escape") {
       dropdown.classList.remove('show');
@@ -207,14 +204,10 @@
       dropbtn.focus();
     }
   });
-&nbsp;
-&nbsp;
 
-  // Fullscreen toggle
+  // Fullscreen toggle for iframe
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   const gameFrame = document.getElementById('gameFrame');
-&nbsp;
-&nbsp;
 
   fullscreenBtn.addEventListener('click', () => {
     if (!document.fullscreenElement) {
@@ -236,5 +229,4 @@
 </script>
 </body>
 </html>
-&nbsp;
-&nbsp;
+
