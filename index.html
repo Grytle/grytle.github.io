@@ -16,19 +16,93 @@
     min-height: 100vh;
   }
   header {
+    position: relative;
     padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    user-select: none;
   }
   header h1 {
     font-size: 3rem;
-    margin-bottom: 0.2rem;
+    margin: 0;
     letter-spacing: 2px;
+    flex-grow: 1;
   }
   header p {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 1.25rem;
     opacity: 0.8;
-    margin-top: 0;
+    margin-top: 0.25rem;
   }
+  /* Dropdown container */
+  .dropdown {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
+  }
+  /* Dropdown button style */
+  .dropbtn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s ease;
+  }
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: rgba(255, 255, 255, 0.4);
+    outline: none;
+  }
+  /* Dropdown arrow */
+  .dropbtn::after {
+    content: '▼';
+    font-size: 0.6rem;
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+  }
+  /* Dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.15);
+    min-width: 160px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    z-index: 1;
+    margin-top: 8px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  /* Dropdown links style */
+  .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+  .dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  /* Show dropdown on button active */
+  .dropdown.show .dropdown-content {
+    display: block;
+  }
+  /* Main content styling */
   main {
     flex-grow: 1;
     display: flex;
@@ -79,6 +153,17 @@
 </head>
 <body>
 <header>
+  <div class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Navigation menu">
+    <button class="dropbtn" id="dropbtn" aria-haspopup="true" aria-controls="dropdown-menu" aria-expanded="false">
+      Menu
+    </button>
+    <div class="dropdown-content" id="dropdown-menu" role="menu" aria-labelledby="dropbtn">
+      <a href="index.html" role="menuitem" tabindex="-1">Home</a>
+      <a href="spacedash.html" role="menuitem" tabindex="-1">Space Dash</a>
+      <a href="contact.html" role="menuitem" tabindex="-1">Contact</a>
+      <a href="about.html" role="menuitem" tabindex="-1">About</a>
+    </div>
+  </div>
   <h1>Welcome to My Site</h1>
   <p>Your cool, modern webpage</p>
 </header>
@@ -92,7 +177,35 @@
 <footer>
   &copy; 2024 My Modern Webpage. All rights reserved.
 </footer>
+<script>
+  // Dropdown toggle
+  const dropdown = document.querySelector('.dropdown');
+  const dropbtn = document.getElementById('dropbtn');
+  const dropdownContent = document.getElementById('dropdown-menu');
+
+  dropbtn.addEventListener('click', () => {
+    const expanded = dropbtn.getAttribute('aria-expanded') === 'true';
+    dropbtn.setAttribute('aria-expanded', String(!expanded));
+    dropdown.classList.toggle('show');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove('show');
+      dropbtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Keyboard accessibility
+  dropdown.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      dropdown.classList.remove('show');
+      dropbtn.setAttribute('aria-expanded', 'false');
+      dropbtn.focus();
+    }
+  });
+</script>
 </body>
 </html>
-&nbsp;
-&nbsp;
+
